@@ -12,17 +12,6 @@ const usersController = {
 
     return res.status(httpStatus.OK).send(result);
   },
-
-  create: catchAsync(async (req, res, next) => {
-    try {
-      const { body } = req;
-      const user = await userService.createUser(body);
-      return res.status(httpStatus.CREATED).json(user);
-    } catch (error) {
-      next(error);
-    }
-  }),
-
   findById: catchAsync(async (req, res) => {
     const user = await userService.getUserById(req.params.userId);
     if (!user) {

@@ -8,9 +8,6 @@ const router = express.Router();
 router.route('/')
   .get(usersController.find);
 
-router.route('/')
-  .post(validate(usersValidator.createUser), usersController.create);
-
 router.route('/:id')
   .get(validate(usersValidator.getUser), usersController.findById);
 

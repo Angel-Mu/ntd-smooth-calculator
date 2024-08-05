@@ -6,6 +6,8 @@ const envVarsSchema = Joi.object()
     NODE_ENV: Joi.string().valid('production', 'development', 'test').required(),
     API_PORT: Joi.number().default(3000),
     DEFAULT_PAGE_SIZE: Joi.number().default(50),
+    SERVER_JWT_SECRET: Joi.string().required(),
+    DEFAULT_JWT_EXPIRATION: Joi.number().default(3600),
   })
   .unknown();
 
@@ -19,6 +21,8 @@ const config = {
   env: envVars.NODE_ENV,
   port: envVars.API_PORT,
   defaultPageSize: envVars.DEFAULT_PAGE_SIZE,
+  jwtSecret: envVars.SERVER_JWT_SECRET,
+  jwtExpiration: envVars.DEFAULT_JWT_EXPIRATION,
   postgres: {
     ...sequelizeConfig,
   },
