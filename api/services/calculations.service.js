@@ -7,24 +7,25 @@ const userService = require('./user.service');
 const { randomStringUrl } = require('../config');
 
 const calc = (operation, firstValue, secondValue) => {
+  const [a, b] = [Number.parseFloat(firstValue), Number.parseFloat(secondValue)];
   switch (operation) {
     case 'addition':
-      return firstValue + secondValue;
+      return a + b;
     case 'subtraction':
-      return firstValue - secondValue;
+      return a - b;
     case 'multiplication':
-      return firstValue * secondValue;
+      return a * b;
     case 'division': {
-      const result = firstValue / secondValue;
+      const result = a / b;
       if (!Number.isFinite(result)) {
-        throw new ApiError(httpStatus.BAD_REQUEST, `Cannot divide ${firstValue}/${secondValue}. Unable to divide by 0`);
+        throw new ApiError(httpStatus.BAD_REQUEST, `Cannot divide ${a}/${b}. Unable to divide by 0`);
       }
       return result;
     }
     case 'square_root': {
-      const result = Math.sqrt(firstValue);
+      const result = Math.sqrt(a);
       if (Number.isNaN(result)) {
-        throw new ApiError(httpStatus.BAD_REQUEST, `Cannot calculate square root of ${firstValue}. Should be a valid integer`);
+        throw new ApiError(httpStatus.BAD_REQUEST, `Cannot calculate square root of ${a}. Should be a valid integer`);
       }
       return result;
     }

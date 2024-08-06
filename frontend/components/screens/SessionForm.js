@@ -5,7 +5,8 @@ import styles from '../../styles/Home.module.css'
 import { useState } from 'react'
 import useSignIn from 'react-auth-kit/hooks/useSignIn'
 import Input from '../form/Input'
-import { apiUrl } from "../../config"
+import request from '../../utils/request'
+import { apiUrl } from '../../config'
 
 export default function SessionForm({ purpose }) {
   const [username, setUsername] = useState('');
@@ -13,21 +14,14 @@ export default function SessionForm({ purpose }) {
   const signIn = useSignIn();
 
   const submitRequest = (url, body) => {
-    return fetch(url, {
+    const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(body)
-    })
-      .then(async res => {
-        const json = await res.json()
-        if (res.ok) {
-          return json;
-        }
-        console.log(json.message)
-        return Promise.reject(json.message);
-      });
+    };
+
+    return request(url, options, body).catch(alert)
   }
 
   const handleRegister = async () => {
@@ -50,7 +44,7 @@ export default function SessionForm({ purpose }) {
           token: token,
           type: 'Bearer',
         },
-        userState: { username: user.username, status: user.status, currentBalance: user.currentBalance },
+        userState: { username: user.username, status: user.status, balance: (user.balance / 100) },
       });
       setTimeout(() => router.push('/calculator'), 500);
     }
