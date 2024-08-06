@@ -8,14 +8,14 @@ const router = express.Router();
 
 router.route('/math-operation')
   .post(
-    authorization,
+    authorization.verify,
     validate(calculationsValidator.calculateOperation),
     calculationsController.calculateOperation
   );
 
 router.route('/random-string')
   .post(
-    authorization,
+    authorization.verify,
     validate(calculationsValidator.generateRandomString),
     calculationsController.generateRandomString
   );

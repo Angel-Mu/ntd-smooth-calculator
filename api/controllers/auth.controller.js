@@ -30,6 +30,10 @@ const authController = {
 
     return res.status(200).json({ user, token });
   }),
+  logout: catchAsync(async (req, res) => {
+    // if this controller is reached means that loging out middleware worked, so we just resolve
+    res.status(httpStatus.OK).send({ message: 'Successfully logged out!' });
+  }),
 };
 
 module.exports = authController;

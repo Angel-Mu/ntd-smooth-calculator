@@ -75,7 +75,6 @@ const CalculatorComponent = () => {
     }
 
     setResult(data.result)
-    console.log(data);
     setCurrentBalance(data.remainingBalance / 100);
   };
 
@@ -112,7 +111,7 @@ const CalculatorComponent = () => {
           </div>
         </form>
         {
-          result ? (renderResult()) : (<></>)
+          result || result === 0 ? (renderResult()) : (<></>)
         }
       </div>
     </>
