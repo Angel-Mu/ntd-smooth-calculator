@@ -20,6 +20,11 @@ module.exports = {
       status: {
         type: Sequelize.STRING,
       },
+      balance_cents: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

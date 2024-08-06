@@ -20,8 +20,8 @@ class Operation extends Model {
     return this;
   }
 
-  static associate(models) {
-    this.hasMany(models.Transaction);
+  static associate() {
+    // TODO: associate
   }
 
   static paginate(filter = {}, options = {}) {

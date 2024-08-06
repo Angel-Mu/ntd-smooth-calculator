@@ -17,12 +17,8 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      amountCents: {
+      amount_cents: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      created_at: {
-        type: Sequelize.DATE,
         allowNull: false,
       },
       user_balance_cents_after: {

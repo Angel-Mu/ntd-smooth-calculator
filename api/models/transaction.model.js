@@ -12,12 +12,8 @@ class Transaction extends Model {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
-      amountCents: {
+      amount_cents: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      created_at: {
-        type: DataTypes.DATE,
         allowNull: false,
       },
       user_balance_cents_after: {
@@ -35,9 +31,8 @@ class Transaction extends Model {
     return this;
   }
 
-  static associate(models) {
-    this.belongsTo(models.User);
-    this.belongsTo(models.Operation);
+  static associate() {
+    // TODO: associate
   }
 
   static paginate(filter = {}, options = {}) {

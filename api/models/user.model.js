@@ -9,6 +9,11 @@ const hashPass = async (user) => {
   }
 };
 
+const setInitialBalance = async (user) => {
+  // eslint-disable-next-line no-param-reassign
+  user.balance_cents = 5 * 100;
+};
+
 class User extends Model {
   static init(sequelize) {
     super.init({
@@ -22,6 +27,11 @@ class User extends Model {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      balance_cents: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
       status: {
         type: DataTypes.ENUM('active', 'inactive'),
         allowNull: false,
@@ -30,7 +40,7 @@ class User extends Model {
     }, {
       hooks: {
         beforeValidate: hashPass,
-        beforeCreate: hashPass,
+        beforeCreate: [hashPass, setInitialBalance],
         beforeSave: hashPass,
       },
       sequelize,
@@ -39,8 +49,8 @@ class User extends Model {
     return this;
   }
 
-  static associate(models) {
-    this.hasMany(models.Transaction);
+  static associate() {
+    // TODO: associate
   }
 
   static paginate(filter = {}, options = {}) {
