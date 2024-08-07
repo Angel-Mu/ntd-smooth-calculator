@@ -16,7 +16,7 @@ const paginate = async function (model, filter, options) {
   const page = options.page && parseInt(options.page, 10) > 0 ? parseInt(options.page, 10) : 1;
   const offset = (page - 1) * limit;
 
-  const countPromise = model.findAndCountAll(filter);
+  const countPromise = model.findAndCountAll({ where: { ...filter } });
   const docsPromise = model
     .findAll({
       where: { ...filter }, offset, limit, order,
