@@ -1,7 +1,7 @@
 const request = (url, options = {}, body = {}) => {
   return fetch(url, {
+    body: body ? JSON.stringify(body) : null,
     ...options,
-    ...(['GET', 'HEAD'].includes(options.method) ? { body: JSON.stringify(body) } : {}),
   })
     .then(async res => {
       const json = await res.json()

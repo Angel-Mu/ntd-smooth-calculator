@@ -73,7 +73,7 @@ const processTransactionAndDeductBalance = async ({
   const remainingBalance = userBalance - costCents;
   const {
     id: transactionId,
-  } = await createTransaction(userId, operationId, remainingBalance, costCents, result);
+  } = await createTransaction(operationId, userId, remainingBalance, costCents, result);
 
   await userService.setNewBalance(userId, remainingBalance);
 

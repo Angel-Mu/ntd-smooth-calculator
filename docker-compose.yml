@@ -1,0 +1,47 @@
+# Use postgres/example user/password credentials
+version: '3.1'
+
+services:
+  api:
+    build: api/
+    container_name: smooth-calculator-api
+    labels:
+      NAME: smooth-calculator-api
+    hostname: smooth-calculator-api
+    depends_on:
+      - db
+    environment:
+      POSTGRES_DB_PORT: ${POSTGRES_DB_PORT}
+      POSTGRES_DB_USER: ${POSTGRES_DB_USER}
+      POSTGRES_DB_HOST: db
+      POSTGRES_DB_PASS: ${POSTGRES_DB_PASS}
+      POSTGRES_DB_NAME: ${POSTGRES_DB_NAME}
+      NODE_ENV: ${NODE_ENV}
+      SERVER_JWT_SECRET: ${SERVER_JWT_SECRET}
+      RANDOM_STRING_URL: ${RANDOM_STRING_URL}
+    ports:
+      - "3000:3000"
+  ui:
+    build: frontend
+    container_name: smooth-calculator-ui
+    labels:
+      NAME: smooth-calculator-ui
+    hostname: smooth-calculator-ui
+    depends_on:
+      - api
+    ports:
+      - 3001:3000
+    restart: on-failure
+    environment:
+      NEXT_PUBLIC_API_URL: api
+  db:
+    image: postgres:15.5
+    restart: always
+    container_name: postgres-ntd
+    hostname: postgres-ntd
+    labels:
+      NAME: postgres-ntd
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_DB_PASS}
+    ports:
+      - ${POSTGRES_DB_PORT}:5432

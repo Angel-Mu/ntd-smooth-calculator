@@ -16,6 +16,7 @@ const Transactions = () => {
   const getTransactions = async () => {
     const url = `${apiUrl}/v1/transactions?limit=${itemsPerPage}&page=${currentPage}`;
     const options = {
+      body: null,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': authHeader,
