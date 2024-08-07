@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import useAuthHeader from 'react-auth-kit/hooks/useAuthHeader'
-import useAuthUser from 'react-auth-kit/hooks/useAuthUser'
 import Input from '../components/form/Input'
 import Header from '../components/Header'
 import request from '../utils/request'
@@ -8,7 +6,6 @@ import request from '../utils/request'
 import { apiUrl } from '../config'
 
 const CalculatorComponent = () => {
-  const authHeader = useAuthHeader();
   const [currentBalance, setCurrentBalance] = useState(0);
   const [firstValue, setFirstValue] = useState(0);
   const [secondValue, setSecondValue] = useState(0);
@@ -64,7 +61,7 @@ const CalculatorComponent = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': authHeader,
+        'Authorization': localStorage.getItem('_authHeader'),
       }
     };
 

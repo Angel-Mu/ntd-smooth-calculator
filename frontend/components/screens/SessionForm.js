@@ -34,10 +34,9 @@ export default function SessionForm({ purpose }) {
 
   const handleLogin = async () => {
     const url = `${apiUrl}/login`;
-    const response = await submitRequest(url, { username, password }).catch(alert);
+    const response = await submitRequest(url, { username, password }).catch(alert) || {};
     const { user, token } = response;
 
-    console.log(user)
     if (user) {
       signIn({
         auth: {
@@ -46,6 +45,8 @@ export default function SessionForm({ purpose }) {
         },
         userState: { username: user.username, status: user.status, balance: (user.balance / 100) },
       });
+      localStorage.setItem('_authHeader', `Bearer ${token}`);
+      localStorage.setItem('_authUser', JSON.stringify(user));
       setTimeout(() => router.push('/calculator'), 500);
     }
   }

@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import Header from '../components/Header'
 import Table from '../components/Table'
-import useAuthHeader from 'react-auth-kit/hooks/useAuthHeader'
 import request from '../utils/request'
 import { apiUrl } from '../config'
 
 const Transactions = () => {
-  const authHeader = useAuthHeader();
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [totalPages, setTotalPages] = useState(0);
@@ -19,7 +17,7 @@ const Transactions = () => {
       body: null,
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': authHeader,
+        'Authorization': localStorage.getItem('_authHeader'),
       },
     }
     const data = await request(url, options).catch(alert);
