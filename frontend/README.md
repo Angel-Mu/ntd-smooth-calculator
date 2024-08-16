@@ -23,6 +23,11 @@ nvm use v20
 npm install
 ```
 
+- Create a new file from `.env.example` to be called only `.env`
+```bash
+cp .env.example .env
+```
+
 - Run server in dev mode
 
 ```bash

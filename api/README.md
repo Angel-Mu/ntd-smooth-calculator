@@ -19,6 +19,11 @@ nvm use v20
 npm install
 ```
 
+- Create a new file from `.env.example` to be called only `.env`
+```bash
+cp .env.example .env
+```
+
 - Set up the DB if this is the first time you run the api
 ```bash
 npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all
