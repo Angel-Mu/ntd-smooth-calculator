@@ -3,6 +3,8 @@
 
 ### How should this be manually tested?
 
+**NOTE:** Needs a Postgres service up and running.
+
 #### Local
 
 
@@ -23,6 +25,7 @@ npm install
 ```bash
 cp .env.example .env
 ```
+**NOTE:** Make sure that the .env values are the ones you can use to connect to your postgres service
 
 - Set up the DB if this is the first time you run the api
 ```bash
