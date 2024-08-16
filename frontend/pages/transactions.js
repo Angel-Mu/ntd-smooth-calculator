@@ -6,13 +6,14 @@ import { apiUrl } from '../config'
 
 const Transactions = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [currentBalance, setCurrentBalance] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(10);
   const [totalPages, setTotalPages] = useState(0);
   const [totalResults, setTotalResults] = useState(0);
   const [tableData, setTableData] = useState([]);
 
   const getTransactions = async () => {
-    const url = `${apiUrl}/v1/transactions?limit=${itemsPerPage}&page=${currentPage}`;
+    const url = `${apiUrl}/v1/transactions?limit=${itemsPerPage}&page=${currentPage}&orderBy=-createdAt`;
     const options = {
       body: null,
       headers: {
@@ -29,6 +30,11 @@ const Transactions = () => {
   useEffect(() => {
     getTransactions();
   }, [currentPage, itemsPerPage]);
+
+  useEffect(() => {
+    const { balance_cents: balance } = JSON.parse(localStorage.getItem('_authUser'));
+    setCurrentBalance((balance / 100).toFixed(2));
+  });
 
   const columsMapping = [{
     name: 'Id',
@@ -58,7 +64,7 @@ const Transactions = () => {
 
   return (
     <>
-      <Header currentBalance={10.0}></Header>
+      <Header currentBalance={currentBalance}></Header>
       <Table data={tableData} columsMapping={columsMapping}></Table>
       <div className="container">
         <div className="row">

@@ -36,6 +36,7 @@ export default function SessionForm({ purpose }) {
     const url = `${apiUrl}/login`;
     const response = await submitRequest(url, { username, password }).catch(alert) || {};
     const { user, token } = response;
+    // console.log(user)
 
     if (user) {
       signIn({
@@ -43,7 +44,7 @@ export default function SessionForm({ purpose }) {
           token: token,
           type: 'Bearer',
         },
-        userState: { username: user.username, status: user.status, balance: (user.balance / 100) },
+        userState: { username: user.username, status: user.status, balance: (user.balance_cents / 100) },
       });
       localStorage.setItem('_authHeader', `Bearer ${token}`);
       localStorage.setItem('_authUser', JSON.stringify(user));

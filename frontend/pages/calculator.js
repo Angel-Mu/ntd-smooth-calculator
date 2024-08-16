@@ -34,6 +34,11 @@ const CalculatorComponent = () => {
   }];
 
   useEffect(() => {
+    const { balance_cents: balance } = JSON.parse(localStorage.getItem('_authUser'));
+    setCurrentBalance((balance / 100).toFixed(2));
+  });
+
+  useEffect(() => {
     if (['square_root', 'random_string'].includes(operation)) {
       setSecondValue('');
       setDisableSecondValue(true);
@@ -73,6 +78,8 @@ const CalculatorComponent = () => {
 
     setResult(data.result)
     setCurrentBalance(data.remainingBalance / 100);
+    const user = JSON.parse(localStorage.getItem('_authUser'));
+    localStorage.setItem('_authUser', JSON.stringify({ ...user, balance_cents: data.remainingBalance }))
   };
 
   const renderOptions = (opt) => (
